@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import ProductImage from "@/components/ProductImage";
-import { products } from "@/lib/data";
+import { productImage, products } from "@/lib/data";
 import { getVariant } from "@/lib/experiments";
 
 const promoTiles = [
@@ -31,21 +31,17 @@ export default function Home() {
       <section className="grid gap-1 lg:grid-cols-2">
         <Link
           href="/c/sale"
-          className="relative flex min-h-[420px] items-center overflow-hidden bg-gradient-to-br from-zinc-800 via-zinc-600 to-stone-400 lg:min-h-[560px]"
+          className="relative flex min-h-[420px] items-center overflow-hidden bg-zinc-800 lg:min-h-[560px]"
         >
-          <svg
-            viewBox="0 0 800 600"
-            className="absolute inset-0 h-full w-full object-cover opacity-60"
-            preserveAspectRatio="xMidYMid slice"
-            aria-hidden="true"
-          >
-            <rect width="800" height="600" fill="#8a93a3" />
-            <path d="M0 380 L180 160 L300 300 L430 90 L560 260 L700 140 L800 280 V600 H0 Z" fill="#5c6672" />
-            <path d="M0 460 L150 300 L320 420 L480 260 L640 400 L800 320 V600 H0 Z" fill="#3f4750" />
-            <path d="M430 90 L470 150 L455 150 L490 210 L370 210 L405 150 L390 150 Z" fill="#e8ebee" />
-            <path d="M180 160 L215 220 L200 220 L230 275 L130 275 L160 220 L145 220 Z" fill="#d7dce2" />
-            <rect y="470" width="800" height="130" fill="#2b3138" />
-          </svg>
+          <Image
+            src="/images/hero.jpg"
+            alt="Hikers heading toward snow-capped mountains"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
           <div className="relative z-10 px-8 py-16 lg:px-16">
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-white">
               End of Summer Sale
@@ -69,11 +65,13 @@ export default function Home() {
           {promoTiles.map((tile) => {
             const product = products.find((p) => p.slug === tile.slug)!;
             return (
-              <Link key={tile.label} href={tile.href} className="group relative overflow-hidden bg-zinc-100">
-                <ProductImage
-                  icon={product.icon}
-                  color={product.colors[0]}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              <Link key={tile.label} href={tile.href} className="group relative min-h-[200px] overflow-hidden bg-zinc-100">
+                <Image
+                  src={productImage(product)}
+                  alt={tile.label}
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <span className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap border border-zinc-300 bg-white px-4 py-1.5 text-sm font-semibold group-hover:bg-black group-hover:text-white">
                   {tile.label}
@@ -140,11 +138,15 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             {gear.map((p) => (
               <Link key={p.slug} href={`/p/${p.slug}`} className="group bg-zinc-900 p-3">
-                <ProductImage
-                  icon={p.icon}
-                  color={p.colors[0]}
-                  className="aspect-square w-full transition-transform duration-300 group-hover:scale-105"
-                />
+                <div className="relative aspect-square w-full overflow-hidden">
+                  <Image
+                    src={productImage(p)}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
                 <p className="mt-2 text-sm font-semibold group-hover:underline">{p.name}</p>
               </Link>
             ))}

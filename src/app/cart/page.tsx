@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import ProductImage from "@/components/ProductImage";
-import { formatPrice } from "@/lib/data";
+import { formatPrice, productImage } from "@/lib/data";
 import { useCart } from "@/lib/cart";
 
 export default function CartPage() {
@@ -32,20 +32,22 @@ export default function CartPage() {
         <div className="mt-8 grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">
             {lines.map((line) => {
-              const colorObj =
-                line.product.colors.find((c) => c.name === line.color) ??
-                line.product.colors[0];
               const unit = line.product.salePrice ?? line.product.price;
               return (
                 <div
                   key={`${line.slug}-${line.color}-${line.size}`}
                   className="flex gap-4 border-b border-zinc-200 py-6"
                 >
-                  <Link href={`/p/${line.slug}`} className="w-28 shrink-0 bg-zinc-100">
-                    <ProductImage
-                      icon={line.product.icon}
-                      color={colorObj}
-                      className="aspect-square w-full"
+                  <Link
+                    href={`/p/${line.slug}`}
+                    className="relative aspect-square w-28 shrink-0 overflow-hidden bg-zinc-100"
+                  >
+                    <Image
+                      src={productImage(line.product)}
+                      alt={line.product.name}
+                      fill
+                      sizes="112px"
+                      className="object-cover"
                     />
                   </Link>
                   <div className="flex flex-1 flex-col">
