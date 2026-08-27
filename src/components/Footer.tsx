@@ -74,9 +74,19 @@ export default function Footer() {
               Sign up for XPLR Pass rewards, early access, and member-only
               field testing.
             </p>
+            <div className="mt-4 flex">
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full border border-zinc-600 bg-transparent px-3 py-2 text-sm placeholder:text-zinc-600"
+              />
+              <span className="cursor-pointer border border-white px-4 py-2 text-sm font-semibold hover:bg-white hover:text-black">
+                Go
+              </span>
+            </div>
             <Link
               href="/login"
-              className="mt-4 inline-block border border-white px-5 py-2 text-sm font-semibold hover:bg-white hover:text-black"
+              className="mt-3 inline-block text-xs text-zinc-500 underline"
             >
               Join XPLR Pass
             </Link>
