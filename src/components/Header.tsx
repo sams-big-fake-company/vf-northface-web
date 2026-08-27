@@ -67,7 +67,7 @@ export default function Header() {
                 href={item.href}
                 className={`text-sm font-semibold hover:underline underline-offset-8 decoration-2 ${
                   "accent" in item && item.accent
-                    ? "text-tnf-red"
+                    ? "text-tnf-red-dark"
                     : "text-zinc-900"
                 }`}
               >
@@ -162,7 +162,7 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={`border-b border-zinc-100 py-3 text-sm font-semibold ${
-                    "accent" in item && item.accent ? "text-tnf-red" : "text-zinc-900"
+                    "accent" in item && item.accent ? "text-tnf-red-dark" : "text-zinc-900"
                   }`}
                 >
                   {item.name}

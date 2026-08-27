@@ -42,7 +42,7 @@ export default function ProductCard({ product }: { product: Product }) {
             <span className="text-zinc-500 line-through">
               {formatPrice(product.price)}
             </span>{" "}
-            <span className="font-semibold text-tnf-red">
+            <span className="font-semibold text-tnf-red-dark">
               {formatPrice(product.salePrice)}
             </span>
           </>
