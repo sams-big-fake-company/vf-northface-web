@@ -1,0 +1,136 @@
+name: SonarQube
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+env:
+  SONAR_PROJECT_KEY: sams-big-fake-company_vf-northface-web
+  SONAR_ORG: sams-big-fake-company
+
+jobs:
+  quality-gate:
+    name: SonarQube Quality Gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: SonarQube scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Quality gate check
+        id: quality-gate
+        continue-on-error: true
+        uses: SonarSource/sonarqube-quality-gate-action@master
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Collect quality gate failure details
+        id: issues
+        if: steps.quality-gate.outcome == 'failure'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PR_PARAM="&pullRequest=${{ github.event.pull_request.number }}"
+          else
+            PR_PARAM=""
+          fi
+
+          ISSUES=$(curl -s -u "$SONAR_TOKEN:" \
+            "https://sonarcloud.io/api/issues/search?componentKeys=${SONAR_PROJECT_KEY}${PR_PARAM}&resolved=false&ps=100")
+
+          {
+            echo "total=$(echo "$ISSUES" | jq '.total')"
+            echo "bugs=$(echo "$ISSUES" | jq '[.issues[] | select(.type=="BUG")] | length')"
+            echo "vulnerabilities=$(echo "$ISSUES" | jq '[.issues[] | select(.type=="VULNERABILITY")] | length')"
+            echo "code_smells=$(echo "$ISSUES" | jq '[.issues[] | select(.type=="CODE_SMELL")] | length')"
+          } >> $GITHUB_OUTPUT
+
+          {
+            echo 'formatted<<SONAR_EOF'
+            echo "$ISSUES" | jq -r '.issues[] | "- [\(.severity)] \(.message) (\(.component | split(":") | .[-1]):\(.line))"'
+            echo 'SONAR_EOF'
+          } >> $GITHUB_OUTPUT
+
+      - name: Trigger Devin remediation
+        if: steps.quality-gate.outcome == 'failure' && github.event_name == 'pull_request'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SONAR_URL="https://sonarcloud.io/project/issues?id=${SONAR_PROJECT_KEY}&pullRequest=${{ github.event.pull_request.number }}"
+
+          PROMPT="Fix the SonarQube quality gate failures on branch ${{ github.head_ref }} of ${{ github.repository }} and push your fix to that branch.
+
+          SonarCloud report: ${SONAR_URL}
+
+          Issues reported:
+          ${{ steps.issues.outputs.formatted }}
+
+          Fix the underlying problems properly (no suppressions, no rule exclusions). Then run \`npm run lint\` and \`npm run build\` before pushing."
+
+          SESSION=$(curl -s -X POST "https://api.devin.ai/v1/sessions" \
+            -H "Authorization: Bearer $DEVIN_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg name "SonarQube fix - vf-northface-web PR #${{ github.event.pull_request.number }}" \
+              --arg repo "${{ github.server_url }}/${{ github.repository }}" \
+              --arg branch "${{ github.head_ref }}" \
+              --arg prompt "$PROMPT" \
+              '{name: $name, repo_url: $repo, branch: $branch, prompt: $prompt, idempotent: true}')")
+
+          SESSION_URL=$(echo "$SESSION" | jq -r '.url')
+
+          if [ "$SESSION_URL" == "null" ] || [ -z "$SESSION_URL" ]; then
+            echo "Failed to create Devin session:"
+            echo "$SESSION"
+            exit 0
+          fi
+
+          cat << EOF > comment.md
+          ## Devin triggered
+
+          The SonarQube quality gate failed on this PR. Devin has been assigned to remediate.
+
+          | Metric | Count |
+          | --- | --- |
+          | Total issues | ${{ steps.issues.outputs.total }} |
+          | Vulnerabilities | ${{ steps.issues.outputs.vulnerabilities }} |
+          | Bugs | ${{ steps.issues.outputs.bugs }} |
+          | Code smells | ${{ steps.issues.outputs.code_smells }} |
+
+          - [Devin session]($SESSION_URL)
+          - [SonarCloud PR analysis]($SONAR_URL)
+          - [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          Devin will push a fix to this branch and the quality gate will re-run automatically.
+          EOF
+
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
+
+      - name: Fail if quality gate failed
+        if: steps.quality-gate.outcome == 'failure'
+        run: |
+          echo "SonarQube quality gate failed"
+          exit 1
