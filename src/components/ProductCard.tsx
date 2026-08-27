@@ -23,7 +23,6 @@ export default function ProductCard({ product }: { product: Product }) {
         {product.colors.slice(0, 6).map((c) => (
           <span
             key={c.name}
-            title={c.name}
             className="h-4 w-6 border border-zinc-300"
             style={{ backgroundColor: c.hex }}
           />
