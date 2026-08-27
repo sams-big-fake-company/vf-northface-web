@@ -1,0 +1,44 @@
+{
+  "exported_at": "2026-08-26T04:00:00Z",
+  "source": "vf-analytics-pipeline v3.4.1",
+  "experiments": [
+    {
+      "key": "hero-cta-style",
+      "status": "completed",
+      "ended_at": "2026-08-25T23:59:59Z",
+      "primary_metric": "hero_cta_click_through_rate",
+      "variants": {
+        "A": {
+          "description": "Outline white CTA, copy 'Shop Sale'",
+          "sessions": 412884,
+          "conversions": 22296,
+          "conversion_rate": 0.054
+        },
+        "B": {
+          "description": "Solid red CTA, copy 'Shop the Sale \u2014 Up to 30% Off'",
+          "sessions": 413092,
+          "conversions": 28504,
+          "conversion_rate": 0.069
+        }
+      },
+      "winner": "B",
+      "lift": 0.278,
+      "p_value": 0.0004,
+      "statistically_significant": true
+    },
+    {
+      "key": "pdp-sticky-add-to-cart",
+      "status": "running",
+      "ended_at": null,
+      "primary_metric": "add_to_cart_rate",
+      "variants": {
+        "A": { "sessions": 88123, "conversions": 7930, "conversion_rate": 0.09 },
+        "B": { "sessions": 88410, "conversions": 8248, "conversion_rate": 0.0933 }
+      },
+      "winner": null,
+      "lift": null,
+      "p_value": 0.21,
+      "statistically_significant": false
+    }
+  ]
+}
