@@ -548,6 +548,10 @@ export function searchProducts(query: string): Product[] {
   );
 }
 
+export function productImage(product: Product): string {
+  return `/images/products/${product.slug}.jpg`;
+}
+
 export function formatPrice(n: number): string {
   return `$${n.toFixed(2)}`;
 }
