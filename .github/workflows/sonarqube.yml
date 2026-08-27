@@ -76,7 +76,7 @@ jobs:
       - name: Trigger Devin remediation
         if: steps.quality-gate.outcome == 'failure' && github.event_name == 'pull_request'
         env:
-          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           SONAR_URL="https://sonarcloud.io/project/issues?id=${SONAR_PROJECT_KEY}&pullRequest=${{ github.event.pull_request.number }}"
