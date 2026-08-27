@@ -1,9 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import ProductImage from "@/components/ProductImage";
-import { formatPrice, getCategory, type Product } from "@/lib/data";
+import { formatPrice, getCategory, productImage, type Product } from "@/lib/data";
 import { useCart } from "@/lib/cart";
 
 export default function ProductDetail({ product }: { product: Product }) {
@@ -41,11 +41,14 @@ export default function ProductDetail({ product }: { product: Product }) {
       </nav>
 
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
-        <div className="relative bg-zinc-100">
-          <ProductImage
-            icon={product.icon}
-            color={color}
-            className="aspect-square w-full"
+        <div className="relative aspect-square bg-zinc-100">
+          <Image
+            src={productImage(product)}
+            alt={product.name}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+            className="object-cover"
           />
           {product.flag && (
             <span className="absolute left-3 top-3 bg-white px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest">
