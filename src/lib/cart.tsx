@@ -3,9 +3,8 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { getProduct, type Product } from "@/lib/data";
@@ -18,6 +17,49 @@ export type CartItem = {
 };
 
 export type CartLine = CartItem & { product: Product };
+
+const STORAGE_KEY = "tnf-demo-cart";
+const EMPTY: CartItem[] = [];
+
+let cache: CartItem[] | null = null;
+const listeners = new Set<() => void>();
+
+function readStorage(): CartItem[] {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as CartItem[]) : EMPTY;
+  } catch {
+    return EMPTY;
+  }
+}
+
+function getSnapshot(): CartItem[] {
+  if (cache === null) cache = readStorage();
+  return cache;
+}
+
+function getServerSnapshot(): CartItem[] {
+  return EMPTY;
+}
+
+function subscribe(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+function setItems(next: CartItem[]) {
+  cache = next;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  } catch {
+    // storage unavailable; keep in-memory cart
+  }
+  listeners.forEach((l) => l());
+}
+
+function sameLine(a: CartItem, b: Omit<CartItem, "quantity">): boolean {
+  return a.slug === b.slug && a.color === b.color && a.size === b.size;
+}
 
 type CartContextValue = {
   items: CartItem[];
@@ -37,30 +79,8 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-const STORAGE_KEY = "tnf-demo-cart";
-
-function sameLine(a: CartItem, b: Omit<CartItem, "quantity">): boolean {
-  return a.slug === b.slug && a.color === b.color && a.size === b.size;
-}
-
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(JSON.parse(raw) as CartItem[]);
-    } catch {
-      // ignore corrupted storage
-    }
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items, hydrated]);
+  const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const value = useMemo<CartContextValue>(() => {
     const lines: CartLine[] = items.flatMap((item) => {
@@ -77,29 +97,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
       lines,
       count,
       subtotal,
-      addItem: (item, quantity = 1) =>
-        setItems((prev) => {
-          const existing = prev.find((i) => sameLine(i, item));
-          if (existing) {
-            return prev.map((i) =>
-              sameLine(i, item) ? { ...i, quantity: i.quantity + quantity } : i
-            );
-          }
-          return [...prev, { ...item, quantity }];
-        }),
+      addItem: (item, quantity = 1) => {
+        const existing = items.find((i) => sameLine(i, item));
+        setItems(
+          existing
+            ? items.map((i) =>
+                sameLine(i, item)
+                  ? { ...i, quantity: i.quantity + quantity }
+                  : i
+              )
+            : [...items, { ...item, quantity }]
+        );
+      },
       removeItem: (slug, color, size) =>
-        setItems((prev) =>
-          prev.filter((i) => !sameLine(i, { slug, color, size }))
-        ),
+        setItems(items.filter((i) => !sameLine(i, { slug, color, size }))),
       updateQuantity: (slug, color, size, quantity) =>
-        setItems((prev) =>
+        setItems(
           quantity <= 0
-            ? prev.filter((i) => !sameLine(i, { slug, color, size }))
-            : prev.map((i) =>
+            ? items.filter((i) => !sameLine(i, { slug, color, size }))
+            : items.map((i) =>
                 sameLine(i, { slug, color, size }) ? { ...i, quantity } : i
               )
         ),
-      clearCart: () => setItems([]),
+      clearCart: () => setItems(EMPTY),
     };
   }, [items]);
 

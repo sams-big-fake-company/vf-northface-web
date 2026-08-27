@@ -9,17 +9,24 @@ type Props = {
 function JacketIcon({ fill }: { fill: string }) {
   return (
     <g>
+      {/* sleeves */}
+      <path d="M40 30 L28 38 L22 88 L36 90 L42 52 Z" fill={fill} stroke="#111" strokeWidth="1.5" />
+      <path d="M80 30 L92 38 L98 88 L84 90 L78 52 Z" fill={fill} stroke="#111" strokeWidth="1.5" />
+      {/* body */}
       <path
-        d="M50 22 L38 28 L26 60 L36 64 L40 54 L40 100 L80 100 L80 54 L84 64 L94 60 L82 28 L70 22 L64 26 Q60 30 56 26 Z"
+        d="M48 22 L40 30 L40 100 L80 100 L80 30 L72 22 L64 27 Q60 31 56 27 Z"
         fill={fill}
         stroke="#111"
         strokeWidth="1.5"
       />
-      <path d="M50 22 L38 28 L40 42 L80 42 L82 28 L70 22 L64 26 Q60 30 56 26 Z" fill="#1a1a1a" />
+      {/* yoke */}
+      <path d="M48 22 L40 30 L40 46 L80 46 L80 30 L72 22 L64 27 Q60 31 56 27 Z" fill="#1a1a1a" />
+      {/* collar */}
+      <path d="M48 22 Q60 34 72 22 L72 16 Q60 26 48 16 Z" fill="#1a1a1a" stroke="#111" strokeWidth="1" />
       <line x1="60" y1="30" x2="60" y2="100" stroke="#111" strokeWidth="1.5" />
-      <line x1="40" y1="56" x2="80" y2="56" stroke="#111" strokeWidth="0.8" opacity="0.5" />
-      <line x1="40" y1="70" x2="80" y2="70" stroke="#111" strokeWidth="0.8" opacity="0.5" />
-      <line x1="40" y1="84" x2="80" y2="84" stroke="#111" strokeWidth="0.8" opacity="0.5" />
+      {/* puffer baffles */}
+      <path d="M40 58 Q60 64 80 58 M40 72 Q60 78 80 72 M40 86 Q60 92 80 86" stroke="#111" strokeWidth="0.9" fill="none" opacity="0.5" />
+      <path d="M28 52 L40 56 M26 66 L38 70 M24 80 L36 82 M92 52 L80 56 M94 66 L82 70 M96 80 L84 82" stroke="#111" strokeWidth="0.7" opacity="0.4" />
     </g>
   );
 }
@@ -27,15 +34,17 @@ function JacketIcon({ fill }: { fill: string }) {
 function FleeceIcon({ fill }: { fill: string }) {
   return (
     <g>
+      <path d="M40 32 L28 40 L24 90 L38 92 L42 54 Z" fill={fill} stroke="#111" strokeWidth="1.5" />
+      <path d="M80 32 L92 40 L96 90 L82 92 L78 54 Z" fill={fill} stroke="#111" strokeWidth="1.5" />
       <path
-        d="M50 24 L36 30 L26 58 L36 62 L40 54 L40 100 L80 100 L80 54 L84 62 L94 58 L84 30 L70 24 L64 28 Q60 32 56 28 Z"
+        d="M48 24 L40 32 L40 100 L80 100 L80 32 L72 24 L64 29 Q60 33 56 29 Z"
         fill={fill}
         stroke="#111"
         strokeWidth="1.5"
       />
-      <line x1="60" y1="30" x2="60" y2="100" stroke="#111" strokeWidth="1.5" />
-      <circle cx="60" cy="27" r="4" fill="none" stroke="#111" strokeWidth="1.2" />
-      <path d="M44 40 q4 3 8 0 M52 46 q4 3 8 0 M64 40 q4 3 8 0" stroke="#111" strokeWidth="0.7" fill="none" opacity="0.4" />
+      <line x1="60" y1="32" x2="60" y2="100" stroke="#111" strokeWidth="1.5" />
+      <path d="M48 24 Q60 36 72 24 L72 18 Q60 28 48 18 Z" fill="#1a1a1a" stroke="#111" strokeWidth="1" />
+      <path d="M44 44 q4 3 8 0 M52 52 q4 3 8 0 M64 44 q4 3 8 0 M46 62 q4 3 8 0 M62 58 q4 3 8 0" stroke="#111" strokeWidth="0.7" fill="none" opacity="0.4" />
     </g>
   );
 }

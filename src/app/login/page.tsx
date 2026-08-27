@@ -1,18 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Logo from "@/components/Logo";
+
+const USER_KEY = "tnf-demo-user";
+const userListeners = new Set<() => void>();
+
+function subscribeUser(listener: () => void): () => void {
+  userListeners.add(listener);
+  return () => userListeners.delete(listener);
+}
+
+function getUserSnapshot(): string | null {
+  return window.localStorage.getItem(USER_KEY);
+}
+
+function setStoredUser(email: string | null) {
+  if (email === null) window.localStorage.removeItem(USER_KEY);
+  else window.localStorage.setItem(USER_KEY, email);
+  userListeners.forEach((l) => l());
+}
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setUser(window.localStorage.getItem("tnf-demo-user"));
-  }, []);
+  const user = useSyncExternalStore(
+    subscribeUser,
+    getUserSnapshot,
+    () => null
+  );
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -20,14 +38,12 @@ export default function LoginPage() {
       setError("Enter a valid email and a password of at least 4 characters.");
       return;
     }
-    window.localStorage.setItem("tnf-demo-user", email);
-    setUser(email);
+    setStoredUser(email);
     setError(null);
   }
 
   function signOut() {
-    window.localStorage.removeItem("tnf-demo-user");
-    setUser(null);
+    setStoredUser(null);
     setEmail("");
     setPassword("");
   }
