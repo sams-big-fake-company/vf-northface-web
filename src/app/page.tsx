@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { productImage, products } from "@/lib/data";
+import { getVariant } from "@/lib/experiments";
 
 const promoTiles = [
   { label: "Women's Sale", href: "/c/womens", slug: "womens-1996-retro-nuptse-jacket" },
@@ -18,6 +19,7 @@ const quickLinks = [
 ];
 
 export default function Home() {
+  const heroCtaVariant = getVariant("hero-cta-style");
   const featured = products.filter((p) => p.flag === "NEW").slice(0, 4);
   const gear = products
     .filter((p) => p.category === "bags-gear")
@@ -47,9 +49,15 @@ export default function Home() {
             <h1 className="mt-3 max-w-md text-4xl font-extrabold leading-tight text-white lg:text-5xl">
               New Sale Styles + Up to 30% Off
             </h1>
-            <span className="mt-6 inline-block border border-white bg-black/40 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur hover:bg-white hover:text-black">
-              Shop Sale
-            </span>
+            {heroCtaVariant === "A" ? (
+              <span className="mt-6 inline-block border border-white bg-black/40 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur hover:bg-white hover:text-black">
+                Shop Sale
+              </span>
+            ) : (
+              <span className="mt-6 inline-block bg-tnf-red px-6 py-2.5 text-sm font-bold text-white hover:bg-tnf-red-dark">
+                Shop the Sale — Up to 30% Off
+              </span>
+            )}
           </div>
         </Link>
 
