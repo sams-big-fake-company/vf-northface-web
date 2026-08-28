@@ -56,7 +56,7 @@ export default function LoginPage() {
 
       {user ? (
         <div className="mt-8 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red-dark">
             XPLR Pass Member
           </p>
           <h1 className="mt-2 text-2xl font-extrabold">Welcome back.</h1>
