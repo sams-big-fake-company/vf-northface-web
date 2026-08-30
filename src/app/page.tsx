@@ -89,7 +89,7 @@ export default function Home() {
             <Link
               key={l.label}
               href={l.href}
-              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-400 hover:border-black"
+              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-600 hover:border-black"
             >
               {l.label}
             </Link>
@@ -156,7 +156,7 @@ export default function Home() {
 
       {/* XPLR Pass */}
       <section className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red">
+        <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red-dark">
           XPLR Pass
         </p>
         <h2 className="mt-3 text-3xl font-extrabold">Never Stop Exploring.</h2>

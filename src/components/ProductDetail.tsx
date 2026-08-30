@@ -77,7 +77,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 <span className="text-zinc-500 line-through">
                   {formatPrice(product.price)}
                 </span>{" "}
-                <span className="font-bold text-tnf-red">
+                <span className="font-bold text-tnf-red-dark">
                   {formatPrice(product.salePrice)}
                 </span>
               </>
@@ -129,7 +129,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 </button>
               ))}
             </div>
-            {error && <p className="mt-2 text-sm text-tnf-red">{error}</p>}
+            {error && <p className="mt-2 text-sm text-tnf-red-dark">{error}</p>}
           </div>
 
           <button
