@@ -17,8 +17,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
-*:focus {
-  outline: none;
+*:focus-visible {
+  outline: 2px solid var(--color-tnf-red-dark);
+  outline-offset: 2px;
 }
 
 body {

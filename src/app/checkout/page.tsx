@@ -35,7 +35,7 @@ export default function CheckoutPage() {
         </p>
         <Link
           href="/"
-          className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+          className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
         >
           Continue Shopping
         </Link>
@@ -50,7 +50,7 @@ export default function CheckoutPage() {
         <p className="mt-3 text-zinc-600">Your cart is empty.</p>
         <Link
           href="/"
-          className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+          className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
         >
           Continue Shopping
         </Link>
@@ -59,7 +59,7 @@ export default function CheckoutPage() {
   }
 
   const inputClass =
-    "w-full border border-zinc-300 px-4 py-2.5 text-sm outline-none focus:border-black";
+    "w-full border border-zinc-300 px-4 py-2.5 text-sm focus:border-black";
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -98,7 +98,7 @@ export default function CheckoutPage() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red sm:w-auto sm:px-10"
+                className="w-full bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red-dark sm:w-auto sm:px-10"
               >
                 Continue to Payment
               </button>
@@ -129,7 +129,7 @@ export default function CheckoutPage() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red sm:flex-none sm:px-10"
+                  className="flex-1 bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red-dark sm:flex-none sm:px-10"
                 >
                   Place Order — {formatPrice(total)}
                 </button>

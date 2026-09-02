@@ -67,7 +67,7 @@ export default function Header() {
                 href={item.href}
                 className={`text-sm font-semibold hover:underline underline-offset-8 decoration-2 ${
                   "accent" in item && item.accent
-                    ? "text-tnf-red"
+                    ? "text-tnf-red-dark"
                     : "text-zinc-900"
                 }`}
               >
@@ -100,7 +100,7 @@ export default function Header() {
                 <path d="M9 7a3 3 0 0 1 6 0" />
               </svg>
               {count > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-tnf-red text-[10px] font-bold text-white">
+                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-tnf-red-dark text-[10px] font-bold text-white">
                   {count}
                 </span>
               )}
@@ -141,7 +141,7 @@ export default function Header() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for products (e.g. Nuptse, Borealis)"
-                className="flex-1 border border-zinc-300 px-4 py-2 text-sm outline-none focus:border-black"
+                className="flex-1 border border-zinc-300 px-4 py-2 text-sm focus:border-black"
               />
               <button
                 type="submit"
@@ -162,7 +162,7 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={`border-b border-zinc-100 py-3 text-sm font-semibold ${
-                    "accent" in item && item.accent ? "text-tnf-red" : "text-zinc-900"
+                    "accent" in item && item.accent ? "text-tnf-red-dark" : "text-zinc-900"
                   }`}
                 >
                   {item.name}

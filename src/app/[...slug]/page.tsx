@@ -26,7 +26,7 @@ export default async function GenericPage({
       </p>
       <Link
         href="/"
-        className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+        className="mt-8 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
       >
         Back to Home
       </Link>

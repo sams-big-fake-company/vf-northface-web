@@ -78,7 +78,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full border border-zinc-600 bg-transparent px-3 py-2 text-sm placeholder:text-zinc-600"
+                className="w-full border border-zinc-600 bg-transparent px-3 py-2 text-sm placeholder:text-zinc-400"
               />
               <span className="cursor-pointer border border-white px-4 py-2 text-sm font-semibold hover:bg-white hover:text-black">
                 Go
@@ -86,7 +86,7 @@ export default function Footer() {
             </div>
             <Link
               href="/login"
-              className="mt-3 inline-block text-xs text-zinc-500 underline"
+              className="mt-3 inline-block text-xs text-zinc-400 underline"
             >
               Join XPLR Pass
             </Link>
@@ -97,7 +97,7 @@ export default function Footer() {
           <div className="text-white [--logo-contrast:#000000]">
             <Logo className="h-9 w-auto" />
           </div>
-          <p className="max-w-xl text-xs leading-relaxed text-zinc-500">
+          <p className="max-w-xl text-xs leading-relaxed text-zinc-400">
             Demo website for internal sales presentation purposes only. Not
             affiliated with, endorsed by, or connected to The North Face or VF
             Corporation. All products, prices, and reviews are fictitious.
