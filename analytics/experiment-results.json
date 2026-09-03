@@ -4,7 +4,7 @@
   "experiments": [
     {
       "key": "hero-cta-style",
-      "status": "completed",
+      "status": "rolled_out",
       "ended_at": "2026-08-25T23:59:59Z",
       "primary_metric": "hero_cta_click_through_rate",
       "variants": {

@@ -18,17 +18,6 @@ export interface ExperimentDefinition {
 
 export const experiments: ExperimentDefinition[] = [
   {
-    key: "hero-cta-style",
-    description:
-      "Homepage hero CTA treatment: A = outline button, B = solid TNF-red button with urgency copy.",
-    status: "completed",
-    variants: {
-      A: "Outline white CTA, copy 'Shop Sale'",
-      B: "Solid red CTA, copy 'Shop the Sale — Up to 30% Off'",
-    },
-    startedAt: "2026-07-15",
-  },
-  {
     key: "pdp-sticky-add-to-cart",
     description:
       "Sticky add-to-cart bar on product detail pages for mobile viewports.",
