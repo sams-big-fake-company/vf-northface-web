@@ -23,7 +23,7 @@ export default function CartPage() {
           <p className="text-zinc-600">Your cart is empty.</p>
           <Link
             href="/"
-            className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+            className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
           >
             Continue Shopping
           </Link>
@@ -106,7 +106,7 @@ export default function CartPage() {
                         onClick={() =>
                           removeItem(line.slug, line.color, line.size)
                         }
-                        className="text-sm text-zinc-500 underline hover:text-tnf-red"
+                        className="text-sm text-zinc-500 underline hover:text-tnf-red-dark"
                       >
                         Remove
                       </button>
@@ -137,7 +137,7 @@ export default function CartPage() {
             </dl>
             <Link
               href="/checkout"
-              className="mt-6 block w-full bg-black py-3.5 text-center text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red"
+              className="mt-6 block w-full bg-black py-3.5 text-center text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red-dark"
             >
               Checkout
             </Link>
