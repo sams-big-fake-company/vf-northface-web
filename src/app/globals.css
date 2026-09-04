@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-tnf-red: #ef3340;
-  --color-tnf-red-dark: #c9202c;
+  --color-tnf-red: #c9202c;
+  --color-tnf-red-dark: #a3151f;
   --color-tnf-black: #1a1a1a;
   --color-tnf-gray: #6b7280;
   --color-tnf-light: #f4f4f5;
@@ -17,8 +17,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
-*:focus {
-  outline: none;
+*:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
 
 body {

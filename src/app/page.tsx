@@ -89,7 +89,7 @@ export default function Home() {
             <Link
               key={l.label}
               href={l.href}
-              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-400 hover:border-black"
+              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-700 hover:border-black"
             >
               {l.label}
             </Link>
