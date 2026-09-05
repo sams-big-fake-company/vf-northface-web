@@ -32,7 +32,7 @@ export default async function SearchPage({
           </p>
           <Link
             href="/"
-            className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+            className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
           >
             Back to Home
           </Link>

@@ -21,6 +21,11 @@
   outline: none;
 }
 
+*:focus-visible {
+  outline: 2px solid var(--color-tnf-red-dark);
+  outline-offset: 2px;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -56,7 +56,7 @@ export default function LoginPage() {
 
       {user ? (
         <div className="mt-8 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red-dark">
             XPLR Pass Member
           </p>
           <h1 className="mt-2 text-2xl font-extrabold">Welcome back.</h1>
@@ -72,7 +72,7 @@ export default function LoginPage() {
           <div className="mt-6 flex justify-center gap-3">
             <Link
               href="/"
-              className="bg-black px-6 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+              className="bg-black px-6 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
             >
               Start Shopping
             </Link>
@@ -111,10 +111,10 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border border-zinc-300 px-4 py-3 text-sm outline-none focus:border-black"
             />
-            {error && <p className="text-sm text-tnf-red">{error}</p>}
+            {error && <p className="text-sm text-tnf-red-dark">{error}</p>}
             <button
               type="submit"
-              className="w-full bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red"
+              className="w-full bg-black py-3.5 text-sm font-bold uppercase tracking-widest text-white hover:bg-tnf-red-dark"
             >
               Sign In
             </button>
