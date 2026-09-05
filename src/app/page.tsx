@@ -54,7 +54,7 @@ export default function Home() {
                 Shop Sale
               </span>
             ) : (
-              <span className="mt-6 inline-block bg-tnf-red px-6 py-2.5 text-sm font-bold text-white hover:bg-tnf-red-dark">
+              <span className="mt-6 inline-block bg-tnf-red-dark px-6 py-2.5 text-sm font-bold text-white hover:bg-black">
                 Shop the Sale — Up to 30% Off
               </span>
             )}
@@ -89,7 +89,7 @@ export default function Home() {
             <Link
               key={l.label}
               href={l.href}
-              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-400 hover:border-black"
+              className="border border-zinc-200 px-5 py-2 text-sm font-semibold text-zinc-700 hover:border-black"
             >
               {l.label}
             </Link>
@@ -130,7 +130,7 @@ export default function Home() {
             </p>
             <Link
               href="/c/bags-gear"
-              className="mt-6 inline-block bg-white px-6 py-2.5 text-sm font-semibold text-black hover:bg-tnf-red hover:text-white"
+              className="mt-6 inline-block bg-white px-6 py-2.5 text-sm font-semibold text-black hover:bg-tnf-red-dark hover:text-white"
             >
               All Backpacks
             </Link>
@@ -156,7 +156,7 @@ export default function Home() {
 
       {/* XPLR Pass */}
       <section className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red">
+        <p className="font-mono text-xs uppercase tracking-[0.25em] text-tnf-red-dark">
           XPLR Pass
         </p>
         <h2 className="mt-3 text-3xl font-extrabold">Never Stop Exploring.</h2>
@@ -166,7 +166,7 @@ export default function Home() {
         </p>
         <Link
           href="/login"
-          className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red"
+          className="mt-6 inline-block bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-tnf-red-dark"
         >
           Sign Up for Free
         </Link>

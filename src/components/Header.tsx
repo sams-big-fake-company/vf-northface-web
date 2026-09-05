@@ -67,7 +67,7 @@ export default function Header() {
                 href={item.href}
                 className={`text-sm font-semibold hover:underline underline-offset-8 decoration-2 ${
                   "accent" in item && item.accent
-                    ? "text-tnf-red"
+                    ? "text-tnf-red-dark"
                     : "text-zinc-900"
                 }`}
               >
@@ -81,26 +81,26 @@ export default function Header() {
               type="button"
               aria-label="Open search"
               onClick={() => setSearchOpen((v) => !v)}
-              className="text-zinc-900 hover:text-tnf-red"
+              className="text-zinc-900 hover:text-tnf-red-dark"
             >
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="7" />
                 <line x1="16.5" y1="16.5" x2="21" y2="21" />
               </svg>
             </button>
-            <Link href="/login" aria-label="My Account" className="text-zinc-900 hover:text-tnf-red">
+            <Link href="/login" aria-label="My Account" className="text-zinc-900 hover:text-tnf-red-dark">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
               </svg>
             </Link>
-            <Link href="/cart" aria-label={`Cart - ${count} items`} className="relative text-zinc-900 hover:text-tnf-red">
+            <Link href="/cart" aria-label={`Cart - ${count} items`} className="relative text-zinc-900 hover:text-tnf-red-dark">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 7h12l1.5 13h-15L6 7Z" />
                 <path d="M9 7a3 3 0 0 1 6 0" />
               </svg>
               {count > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-tnf-red text-[10px] font-bold text-white">
+                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-tnf-red-dark text-[10px] font-bold text-white">
                   {count}
                 </span>
               )}
@@ -162,7 +162,7 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={`border-b border-zinc-100 py-3 text-sm font-semibold ${
-                    "accent" in item && item.accent ? "text-tnf-red" : "text-zinc-900"
+                    "accent" in item && item.accent ? "text-tnf-red-dark" : "text-zinc-900"
                   }`}
                 >
                   {item.name}
